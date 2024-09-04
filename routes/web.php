@@ -22,11 +22,13 @@ Route::get('/', function () {
 })->name("login");
 
 
-Route::get('ingredientes/{ingrediente}', [IngredientesController::class, 'show']);
-Route::put('ingredientes/{ingrediente}', [IngredientesController::class, 'update']);
-Route::resource('ingredientes', IngredientesController::class);
+Route::middleware(['cors'])->group(function () {
+    Route::get('ingredientes/{ingrediente}', [IngredientesController::class, 'show']);
+    Route::put('ingredientes/{ingrediente}', [IngredientesController::class, 'update']);
+    Route::resource('ingredientes', IngredientesController::class);
 
-Route::resource('ordenes', OrdenesController::class);
+    Route::resource('ordenes', OrdenesController::class);
 
-Route::post('soap/NumberToWords', [SoapController::class, 'soapCall']);
+    Route::post('soap/NumberToWords', [SoapController::class, 'soapCall']);
+});
 
