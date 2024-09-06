@@ -50,12 +50,6 @@ class PizzasController extends Controller
 
        $model->ingredientes()->sync($ingredientes);
 
-       event(new UpdateIngredientes($ingredientes));
-       
-       UpdatePago::dispatch($orden->id)->onQueue('high');
-
-       Artisan::call('pizzas:ingredientes', ['--ingrediente' => 5 ]);
-
        return response()->json(["orden" => $orden->id, "pizza" => $model->toArray()]);
 
     }
